@@ -12,12 +12,13 @@ import android.view.Window;
 
 import com.jlenx.core.androi.dui.R;
 import com.jlenx.core.android.rx.RxManager;
+import com.jlenx.core.android.ui.interf.IBasePresenter;
+import com.jlenx.core.android.ui.interf.IBaseView;
 import com.jlenx.core.android.ui.manager.AppManager;
 import com.jlenx.core.android.ui.theme.ChangeModeController;
 import com.jlenx.core.android.ui.utils.ToastUtil;
 import com.jlenx.core.android.ui.widget.LoadingDialog;
 import com.jlenx.core.android.ui.widget.StatusBarCompat;
-import com.jlenx.core.android.utils.TUtil;
 
 import butterknife.ButterKnife;
 
@@ -30,7 +31,7 @@ import butterknife.ButterKnife;
  * 使用例子
  *********************/
 
-public abstract class BaseActivity<T extends BasePresenter> extends AppCompatActivity {
+public abstract class BaseActivity<T extends IBasePresenter> extends AppCompatActivity implements IBaseView {
     protected T mPresenter;
     protected RxManager mRxManager;
     protected Context context;
@@ -38,15 +39,14 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        context=this;
+        context = this;
         mRxManager = new RxManager();
         onBeforeSetContentView();
         setContentView(getLayoutId());
         //绑定activity
-        ButterKnife.bind( this ) ;
-        mPresenter = TUtil.getT(this, 0);
-        initPresenter();
-        initView();
+        ButterKnife.bind(this);
+        mPresenter = this.initPresenter();
+        this.initView();
     }
 
     /**
@@ -74,12 +74,9 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     //获取布局文件
     public abstract int getLayoutId();
 
-    //简单页面无需mvp就不用管此方法即可,完美兼容各种实际场景的变通
-    protected void initPresenter() {
-        if (mPresenter != null) {
-            mPresenter.inject(this, this);
-        }
-    }
+    //获取Presenter
+    protected abstract T initPresenter();
+
 
     //初始化view
     protected abstract void initView();
@@ -157,8 +154,6 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         }
         startActivityForResult(intent, requestCode);
     }
-
-
 
 
     /**

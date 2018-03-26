@@ -1,13 +1,24 @@
 package com.jlenx.hellolenxui;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import com.jlenx.core.android.ui.BaseActivity;
+import com.jlenx.core.android.ui.interf.IBasePresenter;
 
-public class MainActivity extends AppCompatActivity {
+
+public class MainActivity extends BaseActivity {
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    public int getLayoutId() {
+        return R.layout.activity_main;
+    }
+
+    @Override
+    protected IBasePresenter initPresenter() {
+        return null;
+    }
+
+    @Override
+    public void initView() {
+
     }
 }
