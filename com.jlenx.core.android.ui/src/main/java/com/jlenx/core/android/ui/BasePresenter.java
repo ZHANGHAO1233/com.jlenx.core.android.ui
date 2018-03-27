@@ -13,9 +13,9 @@ public abstract class BasePresenter<T extends IBaseView> implements IBasePresent
     private RxManager mRxManage = new RxManager();
 
 
-    public BasePresenter(Context mContext, T mView) {
-        this.mContext = mContext;
-        this.mView = mView;
+    public BasePresenter(Context context, T view) {
+        this.mContext = context;
+        this.mView = view;
         this.onStart();
     }
 

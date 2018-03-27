@@ -10,13 +10,14 @@ import android.view.ViewGroup;
 
 import com.jlenx.core.androi.dui.R;
 import com.jlenx.core.android.rx.RxManager;
+import com.jlenx.core.android.ui.interf.IBasePresenter;
 import com.jlenx.core.android.ui.utils.ToastUtil;
 import com.jlenx.core.android.ui.widget.LoadingDialog;
 import com.jlenx.core.android.utils.TUtil;
 
 import butterknife.ButterKnife;
 
-public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
+public abstract class BaseFragment<T extends IBasePresenter> extends Fragment {
     protected View rootView;
     protected T mPresenter;
     protected RxManager mRxManager;
@@ -38,11 +39,7 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
     protected abstract int getLayoutResource();
 
     //简单页面无需mvp就不用管此方法即可,完美兼容各种实际场景的变通
-    protected void initPresenter() {
-        if (mPresenter != null) {
-            mPresenter.inject(getActivity(), this);
-        }
-    }
+    protected abstract void initPresenter();
 
     //初始化view
     protected abstract void initView();

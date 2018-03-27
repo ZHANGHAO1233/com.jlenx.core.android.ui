@@ -21,6 +21,7 @@ import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.jlenx.core.androi.dui.R;
+import com.jlenx.core.android.ui.interf.IBasePresenter;
 import com.jlenx.core.android.ui.widget.ViewPagerFixed;
 
 import java.util.ArrayList;
@@ -115,8 +116,8 @@ public class BigImagePagerActivity extends BaseActivity {
     }
 
     @Override
-    public void initPresenter() {
-
+    protected IBasePresenter initPresenter() {
+        return null;
     }
 
     private void addGuideView(LinearLayout guideGroup, int startPos, ArrayList<String> imgUrls) {
